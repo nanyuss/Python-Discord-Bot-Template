@@ -1,0 +1,9 @@
+discord
+audioop-lts
+python-dotenv
+
+pyyaml
+
+pymongo
+motor
+aiosqlite

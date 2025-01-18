@@ -1,0 +1,4 @@
+CREATE TABLE if not exists staff (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+);
