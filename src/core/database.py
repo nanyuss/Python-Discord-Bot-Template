@@ -21,7 +21,8 @@ class DatabaseManager:
             return True
         except Exception as e:
             return False
-
+        
+    # Conecta ao banco de dados.
     async def connect(self):
         if self.db_type == 'MongoDB':
             self.client = AsyncIOMotorClient(self._mongo_uri)

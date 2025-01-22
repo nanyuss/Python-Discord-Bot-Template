@@ -13,20 +13,9 @@ DEFAULT_CONFIG = {
     'MONGO': '',     # URL do MongoDB, vazio se não estiver definido
 }
 
-class ConfigLoader:
-    def __init__(self):
-        load_dotenv()
-        self.config = DEFAULT_CONFIG
-
-    def load(self):
-        for key, value in DEFAULT_CONFIG.items():
-            env_value = os.getenv(key)
-            if env_value:
-                self.config[key] = null_and_bool.get(env_value, env_value)
-        return self.config
-    
 class Config:
-    to_dict = ConfigLoader().load()
+    PREFIX = os.getenv('PREFIX' , '..')
+    MONGO = os.getenv('MONGO' , '')
 
-    PREFIX = to_dict['PREFIX']
-    MONGO = to_dict['MONGO']
+    def getenv(key, default=None):
+        return os.getenv(key, default)

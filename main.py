@@ -5,12 +5,33 @@ import os
 from dotenv import load_dotenv
 from src.bot import MyBot
 
-logging.basicConfig(level=logging.INFO, format='%(name)s | %(levelname)s - %(message)s')
+class ColorizedHandler(logging.StreamHandler):
+    COLORS = {
+        'DEBUG': '\033[94m',     # Azul
+        'INFO': '\033[92m',      # Verde
+        'WARNING': '\033[93m',   # Amarelo
+        'ERROR': '\033[91m',     # Vermelho
+        'CRITICAL': '\033[95m',  # Roxo
+    }
+    RESET = '\033[0m'
+
+    def emit(self, record):
+        color = self.COLORS.get(record.levelname, self.RESET)
+        record.levelname = f"{color}{record.levelname}{self.RESET}"
+        record.msg = f"{color}{record.msg}{self.RESET}"
+        super().emit(record)
+
+
+handler = ColorizedHandler()
+formatter = logging.Formatter('%(name)s | %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logging.basicConfig(level=logging.INFO, handlers=[handler])
 log = logging.getLogger(__name__)
 
 load_dotenv()
 log.info('Iniciando aplicação...')
 
+# Inicia a aplicação.
 async def main():
     async with MyBot() as bot:
         await bot.start(os.getenv('TOKEN'))
