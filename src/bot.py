@@ -4,7 +4,7 @@ import logging
 import discord
 from discord.ext import commands
 
-from .core.database import DatabaseManager
+from .core.database import Database
 
 log = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ class MyBot(commands.Bot):
 			intents=discord.Intents.all(), #Definindo que todas as intents da aplicação serão ativadas.
 			command_prefix='..', #Prefixo da aplicação.
 		)
-		self.db: DatabaseManager = None
+		self.db: Database = None
 		
 	#Função que carrega todas as extensões (cogs).
 	async def load_cogs(self, path: str):
@@ -39,7 +39,7 @@ class MyBot(commands.Bot):
 
 	#Evento chamado quando a aplicação está se conectando.
 	async def start(self, token, *, reconnect = True):
-		self.db = await DatabaseManager().connect()
+		self.db = await Database().connect()
 		await self.load_cogs('src/cogs')
 		return await super().start(token, reconnect=reconnect)
 	

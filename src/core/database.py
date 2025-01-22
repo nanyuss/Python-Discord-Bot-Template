@@ -6,7 +6,7 @@ from .config_load import Config
 
 log = logging.getLogger(__name__)
 
-class DatabaseManager:
+class Database:
     def __init__(self):
         self._mongo_uri = Config.MONGO
         self._sqlite_path = 'database.db'
