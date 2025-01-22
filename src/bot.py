@@ -5,6 +5,7 @@ import discord
 from discord.ext import commands
 
 from .core.database import Database
+from .core.config_load import Config
 
 log = logging.getLogger(__name__)
 
@@ -13,7 +14,7 @@ class MyBot(commands.Bot):
 	def __init__(self):
 		super().__init__(
 			intents=discord.Intents.all(), #Definindo que todas as intents da aplicação serão ativadas.
-			command_prefix='..', #Prefixo da aplicação.
+			command_prefix=Config.PREFIX, #Prefixo da aplicação.
 		)
 		self.db: Database = None
 		
